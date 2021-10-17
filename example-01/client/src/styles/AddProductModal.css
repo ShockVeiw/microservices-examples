@@ -1,0 +1,34 @@
+.add-product-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.add-product-modal__content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 300px;
+    width: 300px;
+    transform: translate(-50%, -50%);
+    border: 2px solid blue;
+    border-radius: 0.25rem;
+    background-color: white;
+}
+
+.add-product-modal__close-btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.add-product-modal__form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
