@@ -36,6 +36,10 @@ router.get('/products/:productId/reviews', async ctx => {
     ctx.body = { error: e.message };
   }
 });
+router.post('/events', async ctx => {
+  console.log(`Reviews microservice: Event '${ctx.request.body.type}' received`);
+  ctx.status = 200;
+});
 
 app
   .use(cors())

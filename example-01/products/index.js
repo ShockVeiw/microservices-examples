@@ -28,6 +28,11 @@ app.get('/products', async (req, res) => {
   }
 });
 
+app.post('/events', async (req, res) => {
+  console.log(`Products microservice: Event '${req.body.type}' received`);
+  res.end();
+});
+
 app.listen(PORT, () => {
   console.log(`listening port: ${PORT}`);
 });
