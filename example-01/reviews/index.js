@@ -2,6 +2,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const cors = require('@koa/cors');
+const axios = require('axios');
 
 const { ReviewManager } = require('./ReviewManager');
 
@@ -12,7 +13,13 @@ const PORT = 5001;
 router.post('/products/:productId/reviews/create', async ctx => {
   try {
     const { content = 'No content' } = ctx.request.body;
-    const review = await ReviewManager.create({ content, productId: ctx.params.productId });
+    const { productId } = ctx.params.productId;
+
+    const review = await ReviewManager.create({ content, productId });
+
+    axios
+      .post('http://localhost:5002', { type: 'ReviewCreated', payload: { ...review } })
+      .catch(err => console.log(err.message));
 
     ctx.status = 201;
     ctx.body = review.id;
