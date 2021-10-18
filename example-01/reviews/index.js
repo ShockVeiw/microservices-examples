@@ -13,12 +13,12 @@ const PORT = 5001;
 router.post('/products/:productId/reviews/create', async ctx => {
   try {
     const { content = 'No content' } = ctx.request.body;
-    const { productId } = ctx.params.productId;
+    const { productId } = ctx.params;
 
     const review = await ReviewManager.create({ content, productId });
 
     axios
-      .post('http://localhost:5002', { type: 'ReviewCreated', payload: { ...review } })
+      .post('http://localhost:5002/events', { type: 'ReviewCreated', payload: { ...review } })
       .catch(err => console.log(err.message));
 
     ctx.status = 201;

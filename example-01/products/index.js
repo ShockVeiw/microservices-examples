@@ -22,7 +22,7 @@ app.post('/products/create', async (req, res) => {
 
 app.get('/products', async (req, res) => {
   try {
-    res.send(await ProductManager.get());
+    res.send(await ProductManager.getAll());
   } catch (e) {
     res.status(400).send(e);
   }
@@ -30,6 +30,11 @@ app.get('/products', async (req, res) => {
 
 app.post('/events', async (req, res) => {
   console.log(`Products microservice: Event '${req.body.type}' received`);
+
+  if (req.body.type === 'ReviewCreated') {
+    await ProductManager.incReviewsAmountById(req.body.payload.productId);
+  }
+
   res.end();
 });
 

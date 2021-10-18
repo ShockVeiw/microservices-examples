@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon index.js"
   },
+  "nodemonConfig": {
+    "ignore": ["reviews.json"]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
