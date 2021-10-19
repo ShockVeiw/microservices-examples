@@ -1,9 +1,14 @@
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 
 import '../styles/AddProductModal.css';
 
-export function AddProductModal({ fetchProducts, setIsAddProductModalVisible }: any) {
+interface AddProductModalProps {
+    fetchProducts(): void;
+    setIsAddProductModalVisible(state: boolean): void;
+}
+
+export function AddProductModal({ fetchProducts, setIsAddProductModalVisible }: AddProductModalProps) {
     const inputTitleRef = React.useRef<HTMLInputElement>(null);
     const inputPriceRef = React.useRef<HTMLInputElement>(null);
 

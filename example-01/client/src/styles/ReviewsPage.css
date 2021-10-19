@@ -1,0 +1,24 @@
+.add-review-form__input {
+    width: 250px;
+}
+
+.add-review-form__textarea {
+    height: 150px;
+    width: 100%;
+    resize: vertical;
+    margin-top: 5px;
+}
+
+.reviews-list {
+    list-style: none;
+    margin-top: 30px;
+    padding: 0;
+}
+
+.review:not(:last-child) {
+    border-bottom: 2px solid gray;
+}
+
+.review__content {
+    margin-top: 5px;
+}
