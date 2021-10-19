@@ -10,8 +10,11 @@ interface ProductItemProps {
 
 export function ProductItem ({ title, reviewsAmount, price, productId }: ProductItemProps) {
     return (
-        <Link to={`/products/${productId}/reviews`}>
-          <li className="product-item">
+        <Link to={{
+            pathname: `/products/${productId}/reviews`,
+            state: { productTitle: title }
+        }}>
+          <li className="product-item" key={productId}>
               <h3 className="product-item__title">{title}</h3>
               <span className="product-item__review-amount">{reviewsAmount} reviews</span>
               <span className="product-item__price">Price: {price}$</span>
