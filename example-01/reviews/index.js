@@ -12,10 +12,12 @@ const PORT = 5001;
 
 router.post('/products/:productId/reviews/create', async ctx => {
   try {
-    const { content = 'No content' } = ctx.request.body;
+    const { author = 'Anonymous', content } = ctx.request.body;
     const { productId } = ctx.params;
 
-    const review = await ReviewManager.create({ content, productId });
+    if (!content) throw Error('Field `content` is required');
+
+    const review = await ReviewManager.create({ author, content, productId });
 
     axios
       .post('http://localhost:5002/events', { type: 'ReviewCreated', payload: { ...review } })
@@ -28,6 +30,7 @@ router.post('/products/:productId/reviews/create', async ctx => {
     ctx.body = { error: e.message };
   }
 });
+
 router.get('/products/:productId/reviews', async ctx => {
   try {
     ctx.body = await ReviewManager.getAllByProductId(ctx.params.productId);
@@ -36,6 +39,7 @@ router.get('/products/:productId/reviews', async ctx => {
     ctx.body = { error: e.message };
   }
 });
+
 router.post('/events', async ctx => {
   console.log(`Reviews microservice: Event '${ctx.request.body.type}' received`);
   ctx.status = 200;
