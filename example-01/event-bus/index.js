@@ -11,8 +11,8 @@ app.use(express.json());
 app.post('/events', async (req, res) => {
   const { type, payload } = req.body;
 
-  axios.post('http://localhost:5000/events', { type, payload }).catch(err => console.log(err.message));
-  axios.post('http://localhost:5001/events', { type, payload }).catch(err => console.log(err.message));
+  axios.post('http://products-srv:5000/events', { type, payload }).catch(err => console.log(err.message));
+  axios.post('http://reviews-srv:5001/events', { type, payload }).catch(err => console.log(err.message));
 
   res.end();
 });

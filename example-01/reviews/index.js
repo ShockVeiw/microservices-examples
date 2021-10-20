@@ -20,7 +20,7 @@ router.post('/products/:productId/reviews/create', async ctx => {
     const review = await ReviewManager.create({ author, content, productId });
 
     axios
-      .post('http://localhost:5002/events', { type: 'ReviewCreated', payload: { ...review } })
+      .post('http://event-bus-srv:5002/events', { type: 'ReviewCreated', payload: { ...review } })
       .catch(err => console.log(err.message));
 
     ctx.status = 201;

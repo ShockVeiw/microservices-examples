@@ -15,3 +15,17 @@ spec:
       containers:
         - name: products
           image: leodev08/products:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: products
+  ports:
+    - name: products
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
