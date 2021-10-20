@@ -11,7 +11,7 @@ export function ProductsPage() {
     const [isAddProductModalVisible, setIsAddProductModalVisible] = React.useState<boolean>(false);
 
     const fetchProducts = async () => {
-        const res = await axios.get('http://localhost:5000/products');
+        const res = await axios.get('http://products.com/products');
 
         setProducts(res.data);
     }

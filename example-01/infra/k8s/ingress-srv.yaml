@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: products.com
+      http:
+        paths:
+          - path: /products
+            pathType: Prefix
+            backend:
+              service:
+                name: products-srv
+                port:
+                  number: 5000
+          - path: /products/?(.*)/reviews
+            pathType: Prefix
+            backend:
+              service:
+                name: reviews-srv
+                port:
+                  number: 5001
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000

@@ -14,7 +14,7 @@ export function AddProductModal({ fetchProducts, setIsAddProductModalVisible }: 
 
     const createProduct = (title: string, price: number): void => {
         axios
-            .post('http://localhost:5000/products/create', { title, price })
+            .post('http://products.com/products/create', { title, price })
             .then(fetchProducts)
     }
 

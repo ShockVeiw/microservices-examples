@@ -23,7 +23,7 @@ export function ReviewsPage() {
     const { productTitle } = location.state;
 
     const fetchReviews = async () => {
-        const res = await axios.get(`http://localhost:5001/products/${productId}/reviews`);
+        const res = await axios.get(`http://products.com/products/${productId}/reviews`);
 
         setReviews(res.data);
     }
@@ -35,7 +35,7 @@ export function ReviewsPage() {
         }
 
         axios
-            .post(`http://localhost:5001/products/${productId}/reviews/create`, { author, content })
+            .post(`http://products.com/products/${productId}/reviews/create`, { author, content })
             .then(fetchReviews)
     }
 
