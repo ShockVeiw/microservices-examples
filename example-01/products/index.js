@@ -28,6 +28,17 @@ app.get('/products', async (req, res) => {
   }
 });
 
+app.get('/products/:id', async (req, res) => {
+  try {
+    const product = await ProductManager.getById(req.params.id);
+    if (!product) throw Error('No such product');
+
+    res.send(product);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 app.post('/events', async (req, res) => {
   console.log(`Products microservice: Event '${req.body.type}' received`);
 

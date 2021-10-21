@@ -23,6 +23,10 @@ class ProductManager {
     return products;
   }
 
+  static async getById(id) {
+    return products.find(product => product.id === id);
+  }
+
   static incReviewsAmountById(id) {
     const index = products.findIndex(product => product.id === id);
     if (index === -1) return null;
