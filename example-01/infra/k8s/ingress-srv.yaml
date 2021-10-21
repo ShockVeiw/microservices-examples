@@ -10,7 +10,7 @@ spec:
     - host: products.com
       http:
         paths:
-          - path: /(products$)|(products\/[a-zA-Z0-9]+$)
+          - path: /(products$)|(products\/[a-zA-Z0-9\-_]+$)
             pathType: Prefix
             backend:
               service:
