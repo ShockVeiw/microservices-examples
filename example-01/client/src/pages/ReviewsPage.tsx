@@ -45,6 +45,9 @@ export function ReviewsPage() {
         axios
             .post(`http://products.com/reviews/${productId}/create`, { author, content })
             .then(fetchReviews)
+
+        if (inputAuthorRef?.current?.value) inputAuthorRef.current.value = '';
+        if (textAreaContentRef?.current?.value) textAreaContentRef.current.value = '';
     }
 
     React.useEffect(() => {

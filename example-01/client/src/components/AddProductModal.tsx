@@ -16,12 +16,15 @@ export function AddProductModal({ fetchProducts, setIsAddProductModalVisible }: 
         axios
             .post('http://products.com/products/create', { title, price })
             .then(fetchProducts)
+
+        if (inputTitleRef?.current?.value) inputTitleRef.current.value = '';
+        if (inputPriceRef?.current?.value) inputPriceRef.current.value = '';
     }
 
     return (
         <div className="add-product-modal">
             <div className="add-product-modal__content">
-                <button className="add-product-modal__close-btn" onClick={() => {
+                <button className="add-product-modal__close-btn" type="button" onClick={() => {
                     setIsAddProductModalVisible(false);
                 }}>×</button>
                 <form className="add-product-modal__form">
