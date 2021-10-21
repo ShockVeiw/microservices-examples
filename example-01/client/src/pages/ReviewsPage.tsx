@@ -2,9 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { useParams, useLocation, Link } from 'react-router-dom';
 
-import { Review } from '../shared/interfaces';
+import { Review, Product } from '../shared/interfaces';
 import { ReviewItem } from '../components/ReviewItem';
 import '../styles/ReviewsPage.css';
+
+interface ReviewsPageState {
+    productTitle: string;
+    reviews: Review[];
+}
 
 interface ReviewsPageParamTypes {
     productId: string;
@@ -15,17 +20,20 @@ interface ReviewsPageLocationState {
 }
 
 export function ReviewsPage() {
-    const [reviews, setReviews] = React.useState<Review[]>([]);
+    const [state, setState] = React.useState<ReviewsPageState>({ productTitle: '', reviews: [] });
     const { productId } = useParams<ReviewsPageParamTypes>();
     const inputAuthorRef = React.useRef<HTMLInputElement>(null);
     const textAreaContentRef = React.useRef<HTMLTextAreaElement>(null);
     const location = useLocation<ReviewsPageLocationState>();
-    const { productTitle } = location.state;
 
     const fetchReviews = async () => {
-        const res = await axios.get(`http://products.com/reviews/${productId}`);
+        const productTitle =
+            state.productTitle ||
+            location?.state?.productTitle ||
+            ((await axios.get(`http://products.com/products/${productId}`)).data as Product).title;
+        const { data: reviews } = await axios.get(`http://products.com/reviews/${productId}`);
 
-        setReviews(res.data);
+        setState({ productTitle, reviews });
     }
 
     const createReview = (content: string, author?: string) => {
@@ -48,7 +56,7 @@ export function ReviewsPage() {
           <Link to="/">
               <button className="back-btn">🠔</button>
           </Link>
-          <h1 className="app__title">{`Reviews of ${productTitle}`}</h1>
+          <h1 className="app__title">{`Reviews of ${state.productTitle}`}</h1>
           <form className="add-review-form">
               <input className="add-review-form__input" type="text" placeholder="Your nickname" ref={inputAuthorRef}/>
               <textarea
@@ -62,7 +70,7 @@ export function ReviewsPage() {
               >Add</button>
           </form>
           <ul className="reviews-list">
-              {reviews.map((review: Review) => <ReviewItem id={review.id} author={review.author} content={review.content} />)}
+              {state.reviews.map((review: Review) => <ReviewItem id={review.id} author={review.author} content={review.content} />)}
           </ul>
       </>
     );
