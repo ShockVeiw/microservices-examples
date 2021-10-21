@@ -11,8 +11,8 @@ app.use(cors());
 
 app.post('/products/create', async (req, res) => {
   try {
-    const { title = 'No title', description = 'No description', price = 0 } = req.body;
-    const product = await ProductManager.create({ title, description, price });
+    const { title = 'No title', price = 0 } = req.body;
+    const product = await ProductManager.create({ title, reviewsAmount: 0, price });
 
     res.status(201).send(product.id);
   } catch (e) {

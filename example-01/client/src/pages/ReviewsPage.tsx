@@ -23,7 +23,7 @@ export function ReviewsPage() {
     const { productTitle } = location.state;
 
     const fetchReviews = async () => {
-        const res = await axios.get(`http://products.com/products/${productId}/reviews`);
+        const res = await axios.get(`http://products.com/reviews/${productId}`);
 
         setReviews(res.data);
     }
@@ -35,7 +35,7 @@ export function ReviewsPage() {
         }
 
         axios
-            .post(`http://products.com/products/${productId}/reviews/create`, { author, content })
+            .post(`http://products.com/reviews/${productId}/create`, { author, content })
             .then(fetchReviews)
     }
 
@@ -57,6 +57,7 @@ export function ReviewsPage() {
                   ref={textAreaContentRef}
               />
               <button
+                  type="button"
                   onClick={() => createReview(textAreaContentRef?.current?.value || '', inputAuthorRef?.current?.value || undefined)}
               >Add</button>
           </form>

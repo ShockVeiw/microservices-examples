@@ -10,14 +10,14 @@ spec:
     - host: products.com
       http:
         paths:
-          - path: /products
+          - path: /(products$)|(products\/create$)
             pathType: Prefix
             backend:
               service:
                 name: products-srv
                 port:
                   number: 5000
-          - path: /products/?(.*)/reviews
+          - path: /reviews
             pathType: Prefix
             backend:
               service:

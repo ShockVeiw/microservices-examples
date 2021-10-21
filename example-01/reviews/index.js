@@ -10,7 +10,7 @@ const app = new Koa();
 const router = new Router();
 const PORT = 5001;
 
-router.post('/products/:productId/reviews/create', async ctx => {
+router.post('/reviews/:productId/create', async ctx => {
   try {
     const { author = 'Anonymous', content } = ctx.request.body;
     const { productId } = ctx.params;
@@ -31,7 +31,7 @@ router.post('/products/:productId/reviews/create', async ctx => {
   }
 });
 
-router.get('/products/:productId/reviews', async ctx => {
+router.get('/reviews/:productId', async ctx => {
   try {
     ctx.body = await ReviewManager.getAllByProductId(ctx.params.productId);
   } catch (e) {
