@@ -16,7 +16,7 @@ app.post('/products/create', async (req, res) => {
 
     res.status(201).send(product.id);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send({ error: e.message });
   }
 });
 
@@ -24,7 +24,7 @@ app.get('/products', async (req, res) => {
   try {
     res.send(await ProductManager.getAll());
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send({ error: e.message });
   }
 });
 
@@ -35,7 +35,7 @@ app.get('/products/:id', async (req, res) => {
 
     res.send(product);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send({ error: e.message });
   }
 });
 
